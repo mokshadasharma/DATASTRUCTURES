@@ -1,0 +1,160 @@
+//doubled ended queue
+#include<iostream>
+#include<limits.h>
+#include<math.h>
+#include<stdlib.h>
+using namespace std;
+int fr=-1,rr=-1;
+void enqueue(int Q[],int x,int n)
+{
+    if(rr==n-1)
+    {
+        cout<<"overflow"<<endl;
+    }
+    else
+    {
+        if(fr==-1)
+            fr++;
+        rr=(rr+1)%n;
+        Q[rr]=x;
+    }
+}
+void deletionfromend(int Q[],int n)
+{
+    if(fr==-1 && rr==-1)
+    {
+        cout<<"underflow"<<endl;
+    }
+    else
+    {
+        Q[rr] = 0;
+        rr=rr-1;
+    }
+}
+void insertionatfront(int Q[],int x,int n)
+{
+    if(rr==n-1)
+    {
+        cout<<"overflow"<<endl;
+    }
+    else if(fr==-1)
+    {
+        fr++;
+        Q[fr]=x;
+    }
+    else
+    {
+        int i=0;
+        for(i=rr+1; i>fr; i--)
+            Q[i] = Q[i-1];
+        fr=i;
+        Q[fr] = x;
+        rr=rr+1;
+    }
+}
+void dequeue(int Q[],int n)
+{
+    if(fr==-1 && rr==-1)
+    {
+        cout<<"underflow"<<endl;;
+    }
+    else if(fr==rr)
+    {
+        Q[fr]=0;
+        rr=-1;
+        fr=-1;
+    }
+    else
+    {
+        Q[fr]=0;
+        fr=fr+1;
+    }
+}
+bool isEmpty()
+{
+    if(fr==-1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+int Size(int Q[],int n)
+{
+    return (abs(rr-fr))+1;
+}
+int Front(int Q[])
+    {
+        return Q[fr];
+    }
+int Rear(int Q[])
+    {
+        return Q[rr];
+    }
+
+int main()
+{
+    int n;
+    cout<<"enter size:"<<endl;
+    cin>>n;
+    int Q[n]={0};
+    char ch;
+    do
+    {
+        int c;
+        cout<<"1.enqueue"<<endl;
+        cout<<"2.dequeue"<<endl;
+        cout<<"3.isEmpty"<<endl;
+        cout<<"4.size"<<endl;
+        cout<<"5.display"<<endl;
+        cout<<"6.front element"<<endl;
+        cout<<"7.rear element"<<endl;
+        cout<<"8.insertion at front"<<endl;
+        cout<<"9.deletion from end"<<endl;
+        cin>>c;
+        switch(c)
+        {
+        case 1:
+            int d;
+            cout<<"enter data: ";
+            cin>>d;
+            enqueue(Q,d,n);
+            break;
+        case 2:
+            dequeue(Q,n);
+            break;
+        case 3:
+            isEmpty();
+            break;
+        case 4:
+            cout<<Size(Q,n);
+            break;
+        case 5:
+            for(int i=0;i<n;i++)
+                cout<<Q[i]<<endl;
+            break;
+        case 6:
+            cout<<Front(Q)<<endl;
+            break;
+        case 7:
+            cout<<Rear(Q)<<endl;
+            break;
+        case 8:
+            int d1;
+            cout<<"enter data: ";
+            cin>>d1;
+            insertionatfront(Q,d1,n);
+            break;
+        case 9:
+            deletionfromend(Q,n);
+            break;
+        }
+       cout<<endl<<"want to continue ?(Y/N)";
+       cin>>ch;
+    }
+    while(ch=='y' | ch=='Y');
+    return 0;
+}
+

@@ -1,26 +1,26 @@
 //STACK
 #include<iostream>
 using namespace std;
-int fr=-1,rr=-1;
-void push(int Queue[],int x,int n)
+int top=-1;
+void push(int Stack[],int x,int n)
 {
-    if(fr==(rr+1)%n)
+    if(top==n-1)
     {
         cout<<"overflow"<<endl;
     }
     else
     {
-        rr=rr+1;
-        Queue[rr]=x;
+        top=top+1;
+        Stack[top]=x;
     }
 }
-int topElement (int Queue[])
+int topElement (int Stack[])
     {
-        return Queue[rr];
+        return Stack[top];
     }
-void pop(int Queue[])
+void pop(int Stack[])
 {
-    if(fr==rr)
+    if(top==-1)
     {
         cout<<"underflow"<<endl;;
     }
@@ -50,7 +50,7 @@ int main()
     int n;
     cout<<"Enter size of Queue : "<<endl;
     cin>>n;
-    int Queue[n]={0 };
+    int Stack[n]={0};
     char ch;
     do
     {
@@ -60,8 +60,7 @@ int main()
         cout<<"3.isEmpty"<<endl;
         cout<<"4.size"<<endl;
         cout<<"5.display"<<endl;
-        cout<<"6.front element"<<endl;
-        cout<<"7.rear element"<<endl;
+        cout<<"6.top element"<<endl;
         cin>>c;
         switch(c)
         {
